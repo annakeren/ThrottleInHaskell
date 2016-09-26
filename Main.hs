@@ -1,5 +1,5 @@
 import Control.Monad  
-import Control.Monad.State
+--import Control.Monad.State
 import Data.Char  
 import Counter
   
@@ -9,29 +9,24 @@ main = forever $ do
     putStr "Give me some input: "  
     l <- getLine  
     currentTime <-  Counter.currentTime
-    let push1 = runState (push currentTime) []
+--    let push1 = runState (push currentTime) []
+    let stack = []
+    let ((),newStack1)=push currentTime stack
     print currentTime
-    print push1
-    let ellapsed =  Counter.timeEllapsed currentTime currentTime
-    let lastTime = currentTime 
-    print ellapsed
+    let (a, newStack2)=pop newStack1
+    print a
+--    print push1
+--    let lastRequestTime = runState pop
+
+--    let ellapsed =  Counter.timeEllapsed currentTime currentTime
+--    let ellapsed =  Counter.timeEllapsed lastRequestTime currentTime
+--    let lastTime = currentTime
+--    print ellapsed
 
 type Stack = [Int]
 
-pop :: State Stack Int
-pop = do
- x:xs <- get
- put xs
- return x
+pop :: Stack -> (Int,Stack)
+pop (x:xs) = (x,xs)
 
-push :: Int -> State Stack ()  
-push a = do
- xs <- get
- put (a:xs)
- return ()
-
-stackManip :: State Stack Int  
-stackManip =
- push 3 >>
- pop >>=
- \a -> pop
+push :: Int -> Stack -> ((),Stack)
+push a xs = ((),a:xs)
