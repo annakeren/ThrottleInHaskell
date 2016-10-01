@@ -5,15 +5,13 @@ import Counter
 main = forever $ do  
 
     let times = [0]
+    let emptyStack = []
     putStr "Give me some input: "  
-    l <- getLine  
+    l <- getLine
+    let (lastRequestTime, newStack2)=pop emptyStack
     currentTime <-  Counter.currentTime
     let stack = []
     let ((),newStack1)=push currentTime stack
-
-    let (lastRequestTime, newStack2)=pop newStack1
-    print lastRequestTime
-
     let ellapsed = Counter.timeEllapsed lastRequestTime currentTime
     print ellapsed
 
