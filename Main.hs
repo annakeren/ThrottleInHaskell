@@ -20,6 +20,7 @@ main = forever $ do
 type Stack = [Int]
 
 pop :: Stack -> (Int,Stack)
+pop [] = (0,[])
 pop (x:xs) = (x,xs)
 
 push :: Int -> Stack -> ((),Stack)
