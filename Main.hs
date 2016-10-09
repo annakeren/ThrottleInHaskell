@@ -3,19 +3,24 @@ import Data.Char
 import Counter
 initList=[0]
 main = forever $ do
+
+    putStr " What is inside initList?: "
+    print initList
     putStr "Give me some input: "
     l <- getLine
+--    input
+--    pop previous time
     let (previousRequestTime, newStack2)=pop initList
     putStr " Previous request time: "
     print previousRequestTime
+--     get current time
     currentTime <-  Counter.currentTime
     putStr " Current request time: "
     print currentTime
-
-    let ((),newStack1)=push currentTime initList
-
-    let (previousRequestTime, newStack2)=pop newStack1
-
+--      push current time to stack
+    let ((),initList)=push currentTime newStack2
+    putStr " Pushed request time: "
+    print initList
     let ellapsed = Counter.timeEllapsed previousRequestTime currentTime
     print ellapsed
 
