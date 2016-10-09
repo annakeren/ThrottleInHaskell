@@ -1,18 +1,22 @@
 import Control.Monad
 import Data.Char  
 import Counter
-  
-main = forever $ do  
-
-    let times = [0]
-    let emptyStack = []
-    putStr "Give me some input: "  
+initList=[0]
+main = forever $ do
+    putStr "Give me some input: "
     l <- getLine
-    let (lastRequestTime, newStack2)=pop emptyStack
+    let (previousRequestTime, newStack2)=pop initList
+    putStr " Previous request time: "
+    print previousRequestTime
     currentTime <-  Counter.currentTime
-    let stack = []
-    let ((),newStack1)=push currentTime stack
-    let ellapsed = Counter.timeEllapsed lastRequestTime currentTime
+    putStr " Current request time: "
+    print currentTime
+
+    let ((),newStack1)=push currentTime initList
+
+    let (previousRequestTime, newStack2)=pop newStack1
+
+    let ellapsed = Counter.timeEllapsed previousRequestTime currentTime
     print ellapsed
 
 type Stack = [Int]
