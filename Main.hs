@@ -2,10 +2,10 @@ import Control.Monad
 import Data.Char  
 import Counter
 import Stack
-initList=[0]
-main = do
+stack=[0]
+main = forever $ do 
     currentTime <-  Counter.currentTime
-    let ((),throttleStack) = push currentTime initList
+    let ((),throttleStack) = push currentTime stack
     putStr "Give me some input: "
     l <- getLine
     newTime <- Counter.currentTime
