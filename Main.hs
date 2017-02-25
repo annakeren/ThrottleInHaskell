@@ -5,11 +5,12 @@ import Stack
 initList=[0]
 main = do
     currentTime <-  Counter.currentTime
-    let ((),newStack1) = push currentTime initList
-    print newStack1
+    let ((),throttleStack) = push currentTime initList
     putStr "Give me some input: "
     l <- getLine
     newTime <- Counter.currentTime
-    print newTime
-    let ellapsed = Counter.timeEllapsed currentTime newTime
-    print ellapsed
+    let (lastFromStack, _) = pop throttleStack
+    let ellapsed = Counter.timeEllapsed lastFromStack newTime
+    if (ellapsed == True)
+        then putStrLn "time ellapsed"
+        else putStrLn "time did not ellapse"
